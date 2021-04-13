@@ -14,7 +14,7 @@
                     <li class="list-group-item list-line">
                         <div>
                             <h4>Reservoir name: {{$reservoir->title}}</h4>
-                            <h5>Reservoir area: {{$reservoir->area}} m2</h5>
+                            <h5>Area: {{$reservoir->area}} m2</h5>
                             <h5>About reservoir: {!!$reservoir->about!!}</h5>
                         </div>
                         <div class="list-line__buttons">
