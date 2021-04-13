@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ReservoirController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class ReservoirController extends Controller
      */
     public function index()
     {
-        //
+        $reservoirs = Reservoir::orderBy('area', 'desc')->get();
+        return view('reservoir.index', ['reservoirs' => $reservoirs]);
     }
 
     /**
@@ -24,7 +30,7 @@ class ReservoirController extends Controller
      */
     public function create()
     {
-        //
+        return view('reservoir.create');
     }
 
     /**
@@ -35,7 +41,12 @@ class ReservoirController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $reservoir = new Reservoir;
+        $reservoir->title = $request->reservoir_title;
+        $reservoir->area = $request->reservoir_area;
+        $reservoir->about = $request->reservoir_about;
+        $reservoir->save();
+        return redirect()->route('reservoir.index');
     }
 
     /**
@@ -57,7 +68,7 @@ class ReservoirController extends Controller
      */
     public function edit(Reservoir $reservoir)
     {
-        //
+        return view('reservoir.edit', ['reservoir' => $reservoir]);
     }
 
     /**
@@ -69,7 +80,11 @@ class ReservoirController extends Controller
      */
     public function update(Request $request, Reservoir $reservoir)
     {
-        //
+        $reservoir->title = $request->reservoir_title;
+        $reservoir->area = $request->reservoir_area;
+        $reservoir->about = $request->reservoir_about;
+        $reservoir->save();
+        return redirect()->route('reservoir.index');
     }
 
     /**
@@ -80,6 +95,10 @@ class ReservoirController extends Controller
      */
     public function destroy(Reservoir $reservoir)
     {
-        //
+        if($reservoir->reservoirMembers->count()){
+            return 'Cannot delete this reservoir, because some members are registered here!';
+        }
+        $reservoir->delete();
+        return redirect()->route('reservoir.index')->with('success_message', 'Deleted successfully!');
     }
 }

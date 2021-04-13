@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reservoir extends Model
 {
     use HasFactory;
+    public function reservoirMembers()
+    {
+        return $this->hasMany('App\Models\Member', 'reservoir_id', 'id');
+    }
+ 
 }
