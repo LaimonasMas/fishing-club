@@ -13,16 +13,29 @@ class MemberController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $members = Member::orderBy('surname')->get();
-        return view('member.index', ['members' => $members]);
+        $reservoirs = Reservoir::orderBy('title')->get();
+        //FILTRAVIMAS
+        if ($request->reservoir_id) {
+            $members = Member::where('reservoir_id', $request->reservoir_id)->get();
+            $filterBy = $request->reservoir_id;
+        } else {
+            $members = Member::all();
+        }
+
+        return view('member.index', [
+            'members' => $members,
+            'reservoirs' => $reservoirs,
+            'filterBy' => $filterBy ?? 0
+            ]);
     }
 
     /**
@@ -70,7 +83,6 @@ class MemberController extends Controller
         $member->reservoir_id = $request->reservoir_id;
         $member->save();
         return redirect()->route('member.index');
- 
     }
 
     /**
