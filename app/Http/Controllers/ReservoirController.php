@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservoir;
 use Illuminate\Http\Request;
+use Validator;
 
 class ReservoirController extends Controller
 {
@@ -41,6 +42,21 @@ class ReservoirController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'reservoir_title' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
+                'reservoir_area' => ['required', 'numeric', 'min:10', 'max:99999999'],
+                'reservoir_about' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\d-]*$/', 'min:3', 'max:500'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $reservoir = new Reservoir;
         $reservoir->title = $request->reservoir_title;
         $reservoir->area = $request->reservoir_area;
@@ -80,6 +96,21 @@ class ReservoirController extends Controller
      */
     public function update(Request $request, Reservoir $reservoir)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'reservoir_title' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
+                'reservoir_area' => ['required', 'numeric', 'min:10', 'max:99999999'],
+                'reservoir_about' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\d-]*$/', 'min:3', 'max:500'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $reservoir->title = $request->reservoir_title;
         $reservoir->area = $request->reservoir_area;
         $reservoir->about = $request->reservoir_about;

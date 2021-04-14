@@ -49,20 +49,10 @@ class MemberController extends Controller
             $request->all(),
             [
                 'member_name' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
-                'member_surname' => ['required', 'min:3', 'max:64'],
+                'member_surname' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
                 'member_live' => ['required', 'min:3', 'max:64'],
-                'member_experience' => ['required', 'integer', 'min:3', 'max:64'],
-            ],
-
-            [
-                'member_name.regex' => 'The member name has wronge value.',
-                // 'member_name.required' => 'The mechanic name must be entered.',
-                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
-                // 'member_name.min' => 'The mechanic name must be at least 3 characters.',
-                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
-                // 'member_live.min' => 'The mechanic surname must be at least 3 characters.',
-                // 'member_experience.min' => 'The mechanic surname must be at least 3 characters.',
-
+                'member_experience' => ['required', 'integer', 'gt:member_registered', 'min:1', 'max:99'],
+                'member_registered' => ['required', 'integer', 'min:1', 'max:99'],
             ]
         );
 
@@ -70,6 +60,7 @@ class MemberController extends Controller
             $request->flash();
             return redirect()->back()->withErrors($validator);
         }
+
         $member = new Member;
         $member->name = $request->member_name;
         $member->surname = $request->member_surname;
@@ -118,19 +109,10 @@ class MemberController extends Controller
             $request->all(),
             [
                 'member_name' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
-                'member_surname' => ['required', 'min:3', 'max:64'],
+                'member_surname' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
                 'member_live' => ['required', 'min:3', 'max:64'],
-                'member_experience' => ['required', 'integer', 'min:3', 'max:64'],
-            ],
-
-            [
-                // 'member_name.required' => 'The mechanic name must be entered.',
-                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
-                // 'member_name.min' => 'The mechanic name must be at least 3 characters.',
-                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
-                // 'member_live.min' => 'The mechanic surname must be at least 3 characters.',
-                // 'member_experience.min' => 'The mechanic surname must be at least 3 characters.',
-
+                'member_experience' => ['required', 'integer', 'gt:member_registered', 'min:1', 'max:99'],
+                'member_registered' => ['required', 'integer', 'min:1', 'max:99'],
             ]
         );
 
