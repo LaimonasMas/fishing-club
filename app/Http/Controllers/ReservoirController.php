@@ -62,7 +62,7 @@ class ReservoirController extends Controller
         $reservoir->area = $request->reservoir_area;
         $reservoir->about = $request->reservoir_about;
         $reservoir->save();
-        return redirect()->route('reservoir.index');
+        return redirect()->route('reservoir.index')->with('success_message', 'Created successfully!');
     }
 
     /**
@@ -115,7 +115,7 @@ class ReservoirController extends Controller
         $reservoir->area = $request->reservoir_area;
         $reservoir->about = $request->reservoir_about;
         $reservoir->save();
-        return redirect()->route('reservoir.index');
+        return redirect()->route('reservoir.index')->with('success_message', 'Updated successfully!');
     }
 
     /**
@@ -126,8 +126,8 @@ class ReservoirController extends Controller
      */
     public function destroy(Reservoir $reservoir)
     {
-        if($reservoir->reservoirMembers->count()){
-            return 'Cannot delete this reservoir, because some members are registered here!';
+        if($reservoir->reservoirMembers->count()){      
+            return redirect()->route('reservoir.index')->with('info_message', 'Could not delete this reservoir, because some members are registered here!');
         }
         $reservoir->delete();
         return redirect()->route('reservoir.index')->with('success_message', 'Deleted successfully!');

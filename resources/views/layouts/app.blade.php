@@ -10,7 +10,12 @@
     <title>Fishing Club</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,8 +28,7 @@
 background-image: url("https://img.fotocommunity.com/podpecko-lake-da58794c-121a-4e60-b8bf-c2b9d6dd60cb.jpg?height=1080"); 
 background-repeat: no-repeat; 
 background-attachment: fixed; 
-background-size: 100vw;'
->
+background-size: 100vw;'>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -45,68 +49,67 @@ background-size: 100vw;'
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @endif
+
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
                         @else
 
-<li class="nav-item dropdown">
-<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                   Reservoirs
-                               </a>
-                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                   <a class="dropdown-item" href="{{ route('reservoir.index') }}">
-                                       Reservoirs List
-                                   </a>
-                                   <a class="dropdown-item" href="{{ route('reservoir.create') }}">
-                                       New Reservoir
-                                   </a>
-                               </div>
-                           </li>
-                           <li class="nav-item dropdown">
-                               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                   Members
-                               </a>
-                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                   <a class="dropdown-item" href="{{ route('member.index') }}">
-                                       Members List
-                                   </a>
-                                       <a class="dropdown-item" href="{{ route('member.create') }}">
-                                       New Member
-                                   </a>
-                               </div>
-                           </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Reservoirs
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('reservoir.index') }}">
+                                    Reservoirs List
+                                </a>
+                                <a class="dropdown-item" href="{{ route('reservoir.create') }}">
+                                    New Reservoir
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Members
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('member.index') }}">
+                                    Members List
+                                </a>
+                                <a class="dropdown-item" href="{{ route('member.create') }}">
+                                    New Member
+                                </a>
+                            </div>
+                        </li>
 
 
 
 
 
 
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -115,38 +118,38 @@ background-size: 100vw;'
 
         <main class="py-4">
 
-<div class="container">
-                       <div class="row justify-content-center">
-                           <div class="col-md-9">
-                               @if ($errors->any())
-                               <div class="alert">
-                                   <ul class="list-group">
-                                       @foreach ($errors->all() as $error)
-                                           <li class="list-group-item list-group-item-danger">{{ $error }}</li>
-                                       @endforeach
-                                   </ul>
-                               </div>
-                               @endif
-                           </div>
-                       </div>
-                   </div>
-                   <div class="container">
-                       <div class="row justify-content-center">
-                           <div class="col-md-9">
-                               @if(session()->has('success_message'))
-                                   <div class="alert alert-success" role="alert">
-                                       {{session()->get('success_message')}}
-                                   </div>
-                               @endif
-                              
-                               @if(session()->has('info_message'))
-                                   <div class="alert alert-info" role="alert">
-                                       {{session()->get('info_message')}}
-                                   </div>
-                               @endif
-                           </div>
-                       </div>
-                   </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        @if ($errors->any())
+                        <div class="alert">
+                            <ul class="list-group">
+                                @foreach ($errors->all() as $error)
+                                <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        @if(session()->has('success_message'))
+                        <div class="alert alert-success" role="alert">
+                            {{session()->get('success_message')}}
+                        </div>
+                        @endif
+
+                        @if(session()->has('info_message'))
+                        <div class="alert alert-info" role="alert">
+                            {{session()->get('info_message')}}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
 
 
             @yield('content')
