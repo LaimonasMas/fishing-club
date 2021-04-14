@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Models\Reservoir;
+use Validator;
 
 class MemberController extends Controller
 {
@@ -43,6 +44,32 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'member_name' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
+                'member_surname' => ['required', 'min:3', 'max:64'],
+                'member_live' => ['required', 'min:3', 'max:64'],
+                'member_experience' => ['required', 'integer', 'min:3', 'max:64'],
+            ],
+
+            [
+                'member_name.regex' => 'The member name has wronge value.',
+                // 'member_name.required' => 'The mechanic name must be entered.',
+                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
+                // 'member_name.min' => 'The mechanic name must be at least 3 characters.',
+                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
+                // 'member_live.min' => 'The mechanic surname must be at least 3 characters.',
+                // 'member_experience.min' => 'The mechanic surname must be at least 3 characters.',
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
         $member = new Member;
         $member->name = $request->member_name;
         $member->surname = $request->member_surname;
@@ -87,6 +114,31 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'member_name' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
+                'member_surname' => ['required', 'min:3', 'max:64'],
+                'member_live' => ['required', 'min:3', 'max:64'],
+                'member_experience' => ['required', 'integer', 'min:3', 'max:64'],
+            ],
+
+            [
+                // 'member_name.required' => 'The mechanic name must be entered.',
+                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
+                // 'member_name.min' => 'The mechanic name must be at least 3 characters.',
+                // 'member_surname.min' => 'The mechanic surname must be at least 3 characters.',
+                // 'member_live.min' => 'The mechanic surname must be at least 3 characters.',
+                // 'member_experience.min' => 'The mechanic surname must be at least 3 characters.',
+
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $member->name = $request->member_name;
         $member->surname = $request->member_surname;
         $member->live = $request->member_live;
