@@ -28,7 +28,7 @@
 background-image: url("images/podpecko-lake-da58794c-121a-4e60-b8bf-c2b9d6dd60cb.jpg"); 
 background-repeat: no-repeat; 
 background-attachment: fixed; 
-background-size: 100vw;'>
+background-size: cover'>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
