@@ -48,7 +48,7 @@ class ReservoirController extends Controller
             [
                 'reservoir_title' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s-]*$/', 'min:3', 'max:64'],
                 'reservoir_area' => ['required', 'numeric', 'min:10', 'max:99999999'],
-                'reservoir_about' => ['required', 'regex:/^[\'a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\d-]*$/', 'min:3', 'max:500'],
+                'reservoir_about' => ['required', 'regex:/^[\',.!?a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\d-]*$/', 'min:3', 'max:500'],
             ]
         );
 
