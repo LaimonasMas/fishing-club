@@ -25,7 +25,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body style='
-background-image: url("https://img.fotocommunity.com/podpecko-lake-da58794c-121a-4e60-b8bf-c2b9d6dd60cb.jpg?height=1080"); 
+background-image: url("images/podpecko-lake-da58794c-121a-4e60-b8bf-c2b9d6dd60cb.jpg"); 
 background-repeat: no-repeat; 
 background-attachment: fixed; 
 background-size: 100vw;'>
