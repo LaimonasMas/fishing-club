@@ -6,9 +6,9 @@
 ![Eco Status](https://img.shields.io/badge/ECO-Friendly-green.svg)
 
 
-## Library application
+## Fishing Club application
 
-This is a simple Library application which was built for studying purposes only. 
+This is a simple Fishing Club application which was built for studying purposes only. 
 
 #### Project features
 - PHP
